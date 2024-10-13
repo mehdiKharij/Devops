@@ -11,7 +11,7 @@ pipeline {
                 script {
                     // Construire l'image frontend
                     echo 'Building Frontend...'
-                    sh 'docker build -t awwin/app-devops:frontend -f angular-17-client/Dockerfile .'
+                    bat 'docker build -t awwin/app-devops:frontend -f angular-17-client/Dockerfile .'
                 }
             }
         }
@@ -20,7 +20,7 @@ pipeline {
                 script {
                     // Construire l'image backend
                     echo 'Building Backend...'
-                    sh 'docker build -t awwin/app-devops:1.0 -f spring-boot-server/Dockerfile .'
+                    bat 'docker build -t awwin/app-devops:1.0 -f spring-boot-server/Dockerfile .'
                 }
             }
         }
@@ -30,8 +30,8 @@ pipeline {
                     // Pousser l'image frontend vers Docker Hub
                     echo 'Pushing Frontend to Docker Hub...'
                     withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                        sh "echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin"
-                        sh 'docker push awwin/app-devops:frontend'
+                        bat "echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin"
+                        bat 'docker push awwin/app-devops:frontend'
                     }
                 }
             }
@@ -42,8 +42,8 @@ pipeline {
                     // Pousser l'image backend vers Docker Hub
                     echo 'Pushing Backend to Docker Hub...'
                     withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                        sh "echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin"
-                        sh 'docker push awwin/app-devops:1.0'
+                        bat "echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin"
+                        bat 'docker push awwin/app-devops:1.0'
                     }
                 }
             }
