@@ -44,6 +44,7 @@ pipeline {
 
                     // Démarrer les nouveaux conteneurs
                     echo 'Running Docker containers...'
+                    bat 'docker run -d --name frontend -p 80:80 myapp/frontend:latest'
                     bat 'docker run -d --name backend -p 81:8081 myapp/backend:latest'
                 }
             }
