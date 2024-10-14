@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 // Vérifier le code source à partir du dépôt
-                git branch: 'main', url: 'https://github.com/Fzsalhi2002/Devops.git'
+                git branch: 'main', url: 'https://github.com/mehdiKharij/Devops.git'
             }
         }
 
@@ -16,12 +16,11 @@ pipeline {
                 }
             }
         }
-
         
         stage('Build Backend') {
             steps {
                 dir('spring-boot-server') {
-                    bat 'mvn clean install'
+                     bat '"C:\\Program Files\\apache-maven-3.9.9\\bin\\mvn" clean install'
                 }
             }
         }
@@ -47,7 +46,7 @@ pipeline {
                     // Démarrer les nouveaux conteneurs
                     echo 'Running Docker containers...'
                     bat 'docker run -d --name frontend -p 4200:80 myapp/frontend:latest'
-                    bat 'docker run -d --name backend -p 8081:8081 myapp/backend:latest'
+                    bat 'docker run -d --name backend -p 81:8081 myapp/backend:latest'
                 }
             }
         }
