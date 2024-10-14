@@ -6,7 +6,7 @@ LABEL authors="Abdelaziz"
 EXPOSE 8081
 
 # The application's jar file
-ARG JAR_FILE=target/spring-boot-jpa-h2-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE
 
 # Add the application's jar to the container
 COPY ${JAR_FILE} app.jar
