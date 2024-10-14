@@ -1,20 +1,20 @@
 # Build stage
 FROM node:20 AS build
 
+# Set the working directory for the build stage
 WORKDIR /app
 
 # Copy package.json and package-lock.json (if available)
-COPY package*.json ./
+COPY angular-17-client/package*.json ./
 
 # Install dependencies
 RUN npm ci
 
 # Copy the rest of the application code
-COPY . .
+COPY angular-17-client/ ./
 
 # Build the Angular app
 RUN npm run build 
-
 
 # Run stage
 FROM nginx:alpine
@@ -23,10 +23,10 @@ FROM nginx:alpine
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Copy the build output to replace the default nginx contents
-COPY --from=build app/dist/angular-17-crud/browser /usr/share/nginx/html
+COPY --from=build /app/dist/angular-17-crud/browser /usr/share/nginx/html
 
 # Copy a custom nginx configuration
-# Note: Make sure you have a nginx.conf file in the same directory as your Dockerfile
+# Note: Make sure you have an nginx.conf file in the angular-17-client directory
 COPY angular-17-client/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Debug: List contents of nginx html directory
