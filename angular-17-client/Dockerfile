@@ -27,7 +27,7 @@ COPY --from=build app/dist/angular-17-crud/browser /usr/share/nginx/html
 
 # Copy a custom nginx configuration
 # Note: Make sure you have a nginx.conf file in the same directory as your Dockerfile
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY angular-17-client/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Debug: List contents of nginx html directory
 RUN echo "Contents of /usr/share/nginx/html:" && ls -la /usr/share/nginx/html
