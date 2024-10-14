@@ -30,6 +30,7 @@ pipeline {
                 script {
                     // Construire les images Docker pour le frontend et le backend
                     echo 'Building Docker images...'
+                     bat 'docker build -t myapp/frontend:latest -f angular-17-client/Dockerfile .'
                     bat 'docker build -t myapp/backend:latest --build-arg JAR_FILE=spring-boot-server/target/spring-boot-jpa-h2-0.0.1-SNAPSHOT.jar -f spring-boot-server/Dockerfile .'
                 }
             }
