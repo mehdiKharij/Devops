@@ -30,7 +30,6 @@ pipeline {
                 script {
                     // Construire les images Docker pour le frontend et le backend
                     echo 'Building Docker images...'
-                    bat 'docker build -t myapp/frontend:latest -f angular-17-client/Dockerfile .'
                     bat 'docker build -t myapp/backend:latest --build-arg JAR_FILE=spring-boot-server/target/spring-boot-jpa-h2-0.0.1-SNAPSHOT.jar -f spring-boot-server/Dockerfile .'
                 }
             }
@@ -40,12 +39,10 @@ pipeline {
             steps {
                 script {
                     // Arrêter et supprimer les conteneurs s'ils existent déjà
-                    bat 'docker rm -f frontend || exit 0'
                     bat 'docker rm -f backend || exit 0'
 
                     // Démarrer les nouveaux conteneurs
                     echo 'Running Docker containers...'
-                    bat 'docker run -d --name frontend -p 4200:80 myapp/frontend:latest'
                     bat 'docker run -d --name backend -p 81:8081 myapp/backend:latest'
                 }
             }
